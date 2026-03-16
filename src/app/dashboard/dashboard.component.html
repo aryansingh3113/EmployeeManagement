@@ -1,0 +1,174 @@
+<!-- Loader -->
+<div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Loading dashboard...</p>
+</div>
+
+<div class="dashboard-wrapper" *ngIf="!isLoading">
+
+  <!-- ─── Top Bar ─── -->
+  <div class="top-bar">
+    <div class="welcome">
+      <h1>Welcome back, <span class="username">{{ userName }}</span> 👋</h1>
+      <p>{{ currentDate | date:'fullDate' }}</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-area">
+      <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input 
+          type="text" 
+          placeholder="Search employees..." 
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()">
+        <span class="clear-btn" *ngIf="searchTerm" (click)="clearSearch()">✕</span>
+      </div>
+
+      <!-- Search Results Dropdown -->
+      <div class="search-dropdown" *ngIf="showResults">
+        <div *ngIf="searchResults.length === 0" class="no-results">
+          No employees found
+        </div>
+        <div class="search-item" 
+             *ngFor="let emp of searchResults"
+             (click)="onSelectEmployee(emp)">
+          <img [src]="emp.img || 'assets/user.png'" alt="photo">
+          <div>
+            <strong>{{ emp.name }}</strong>
+            <span>{{ emp.designation }} — {{ emp.business }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Stats Cards ─── -->
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <div class="stat-icon">👥</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalEmployees }}</span>
+        <span class="stat-label">Total Employees</span>
+      </div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-icon">🏢</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalDepartments }}</span>
+        <span class="stat-label">Departments</span>
+      </div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-icon">👨</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalGenders.male }}</span>
+        <span class="stat-label">Male Employees</span>
+      </div>
+    </div>
+
+    <div class="stat-card pink">
+      <div class="stat-icon">👩</div>
+      <div class="stat-info">
+        <span class="stat-value">{{ totalGenders.female }}</span>
+        <span class="stat-label">Female Employees</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Middle Section ─── -->
+  <div class="middle-section">
+
+    <!-- Recent Registrations -->
+    <div class="box recent">
+      <div class="box-header">
+        <h3>Recent Registrations</h3>
+        <button (click)="goTo('Employee')">View All</button>
+      </div>
+      <div *ngIf="recentEmployees.length === 0" class="empty">
+        No employees yet.
+      </div>
+      <div class="recent-item" *ngFor="let emp of recentEmployees">
+        <img [src]="emp.img || 'assets/user.png'" alt="photo">
+        <div class="recent-info">
+          <strong>{{ emp.name }}</strong>
+          <span>{{ emp.designation }}</span>
+        </div>
+        <span class="dept-badge">{{ emp.business }}</span>
+      </div>
+    </div>
+
+    <!-- Department Breakdown -->
+    <div class="box departments">
+      <div class="box-header">
+        <h3>Department Breakdown</h3>
+      </div>
+      <div *ngIf="departments.length === 0" class="empty">
+        No data yet.
+      </div>
+      <div class="dept-item" *ngFor="let dept of departments">
+        <div class="dept-top">
+          <span class="dept-name">{{ dept.name }}</span>
+          <span class="dept-count">{{ dept.count }} ({{ dept.percentage }}%)</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="dept.percentage"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── Bottom Section ─── -->
+  <div class="bottom-section">
+
+    <!-- Gender Ratio -->
+    <div class="box gender">
+      <h3>Gender Ratio</h3>
+      <div class="gender-item">
+        <span>Male</span>
+        <div class="progress-bar">
+          <div class="progress-fill blue-fill" 
+               [style.width.%]="genderPercent(totalGenders.male)"></div>
+        </div>
+        <span>{{ genderPercent(totalGenders.male) }}%</span>
+      </div>
+      <div class="gender-item">
+        <span>Female</span>
+        <div class="progress-bar">
+          <div class="progress-fill pink-fill" 
+               [style.width.%]="genderPercent(totalGenders.female)"></div>
+        </div>
+        <span>{{ genderPercent(totalGenders.female) }}%</span>
+      </div>
+      <div class="gender-item">
+        <span>Other</span>
+        <div class="progress-bar">
+          <div class="progress-fill purple-fill" 
+               [style.width.%]="genderPercent(totalGenders.other)"></div>
+        </div>
+        <span>{{ genderPercent(totalGenders.other) }}%</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="box quick-actions">
+      <h3>Quick Actions</h3>
+      <button class="action-btn" (click)="goTo('Employee Registration')">
+        ➕ Register New Employee
+      </button>
+      <button class="action-btn" (click)="goTo('Employee')">
+        👥 View All Employees
+      </button>
+      <button class="action-btn" (click)="goTo('Profile')">
+        👤 View Profile
+      </button>
+      <button class="action-btn" (click)="goTo('Help')">
+        ❓ Get Help
+      </button>
+    </div>
+
+  </div>
+</div>

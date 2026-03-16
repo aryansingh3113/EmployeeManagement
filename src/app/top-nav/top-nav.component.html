@@ -1,0 +1,30 @@
+<div class="top-nav">
+
+  <!-- ─── Left: Site Name ─── -->
+  <div class="site-name">
+    <div class="logo-circle">EMS</div>
+    <div class="site-text">
+      <span class="title">Employee Management System</span>
+      <span class="subtitle">Admin Portal</span>
+    </div>
+  </div>
+
+  <!-- ─── Right: User + Logout ─── -->
+  <div class="nav-right">
+    <div class="user-info">
+      <div class="user-avatar">{{ userName.charAt(0).toUpperCase() }}</div>
+      <div class="user-details">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-role">Administrator</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <button class="logout-btn" (click)="onLogout()">
+      <span class="logout-icon">⏻</span>
+      <span>Logout</span>
+    </button>
+  </div>
+
+</div>

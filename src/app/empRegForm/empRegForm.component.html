@@ -1,0 +1,104 @@
+<div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Saving employee data...</p>
+</div>
+<div class="main-div">
+  <form [formGroup] = "reactiveForm" (ngSubmit) = "onSubmit()">
+    <div class="registration-container">
+      <h2>Employee Registration Form</h2>
+
+      <div class="form-group">
+        <label for="empName">Employee Name:</label>
+        <input type="text" id="empName" name="empName" placeholder="Full Name" formControlName = "empname">
+        <small *ngIf = "reactiveForm.get('empname').invalid && reactiveForm.get('empname').touched">*Employee Name is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('empname').valid && reactiveForm.get('empname').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="empId">Employee ID:</label>
+        <input type="text" id="empId" name="empId" placeholder="E-101" formControlName = "empId">
+        <small *ngIf = "reactiveForm.get('empId').invalid && reactiveForm.get('empId').touched">*Employee ID is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('empId').valid && reactiveForm.get('empId').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="designation">Employee Designation:</label>
+        <input type="text" id="designation" name="designation" placeholder="e.g. Software Engineer" formControlName = "designation">
+        <small *ngIf = "reactiveForm.get('designation').invalid && reactiveForm.get('designation').touched">*Employee Designation is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('designation').valid && reactiveForm.get('designation').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="experience">Years of Experience:</label>
+        <input type="number" id="experience" name="experience" formControlName = "experience">
+        <small *ngIf = "reactiveForm.get('experience').invalid && reactiveForm.get('experience').touched">*Years of Experience is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('experience').valid && reactiveForm.get('experience').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="business">Business Unit:</label>
+        <select name="business" id="business" formControlName = "business">
+          <option value="">Select Unit</option>
+          <option>Engineering</option>
+          <option>HR</option>
+          <option>Marketing</option>
+          <option>Finance</option>
+          <option>Consultancy Service</option>
+          <option>IT Services</option>
+        </select>
+        <small *ngIf = "reactiveForm.get('business').invalid && reactiveForm.get('business').touched">*Business Unit is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('business').valid && reactiveForm.get('business').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="nationality">Nationality:</label>
+        <input type="text" id="nationality" name="nationality" formControlName = "nationality">
+        <small *ngIf = "reactiveForm.get('nationality').invalid && reactiveForm.get('nationality').touched">*Nationality is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('nationality').valid && reactiveForm.get('nationality').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Employee Email:</label>
+        <input type="email" id="email" name="email" placeholder="email@company.com" formControlName = "email">
+        <small *ngIf = "reactiveForm.get('email').invalid && reactiveForm.get('email').touched">*Employee Email is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('email').valid && reactiveForm.get('email').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label for="contact">Employee Contact Number:</label>
+        <input type="number" id="contact" name="contact" formControlName = "contact">
+        <small *ngIf = "reactiveForm.get('contact').invalid && reactiveForm.get('contact').touched">*Employee Contact Number is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('contact').valid && reactiveForm.get('contact').touched">Looks Good!</small>
+      </div>
+
+      <div class="form-group">
+        <label>Employee Gender:</label>
+        <select name="gender" formControlName = "gender">
+          <option value="">Select gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <small *ngIf = "reactiveForm.get('gender').invalid && reactiveForm.get('gender').touched">*Employee Gender is a required field</small>
+        <small class="valid-msg" *ngIf = "reactiveForm.get('gender').valid && reactiveForm.get('gender').touched">Looks Good!</small>
+      </div>
+
+      <div class="button-group">
+        <button type="submit">Submit</button>
+        <button type="reset" class="reset">Reset</button>
+      </div>
+    </div>
+  </form>
+<!--Live Preview-->
+  <div class="credentials">
+    <h3>Live Preview</h3>
+    <div class="entity"><strong>Name:</strong> {{empData.name}}</div>
+    <div class="entity"><strong>ID:</strong> {{empData.id}}</div>
+    <div class="entity"><strong>Designation:</strong> {{empData.designation}}</div>
+    <div class="entity"><strong>Experience:</strong> {{empData.yearExp}}</div>
+    <div class="entity"><strong>Business:</strong> {{empData.business}}</div>
+    <div class="entity"><strong>Email:</strong> {{empData.email}}</div>
+    <div class="entity"><strong>Contact:</strong> {{empData.contact}}</div>
+    <div class="entity"><strong>Gender:</strong> {{empData.gender}}</div>
+  </div>
+</div>

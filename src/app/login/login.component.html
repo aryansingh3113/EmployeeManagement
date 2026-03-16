@@ -1,0 +1,97 @@
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <!-- Header -->
+    <div class="login-header">
+      <div class="logo-circle">EMS</div>
+      <h2>Welcome Back</h2>
+      <p>Sign in to your Employee Portal</p>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <div class="input-wrapper" 
+             [class.valid]="username.valid && username.touched"
+             [class.invalid]="username.invalid && username.touched">
+          
+          <span class="input-icon">&#9998;</span>
+          <input 
+            type="text" 
+            id="username"
+            formControlName="username"
+            placeholder="Enter your username">
+        </div>
+
+        <!-- Validation messages -->
+        <div class="error-text" *ngIf="username.invalid && username.touched">
+          <span *ngIf="username.errors?.['required']">
+            Username is required.
+          </span>
+          <span *ngIf="username.errors?.['minlength']">
+            Must be at least 3 characters.
+          </span>
+        </div>
+
+        <div class="success-text" *ngIf="username.valid && username.touched">
+          Looks good!
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper"
+             [class.valid]="password.valid && password.touched"
+             [class.invalid]="password.invalid && password.touched">
+
+          <span class="input-icon">&#128274;</span>
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            id="password"
+            formControlName="password"
+            placeholder="Enter your password">
+
+          <!-- Show / hide toggle -->
+          <span class="toggle-pw" (click)="togglePassword()">
+            {{ showPassword ? 'Hide' : 'Show' }}
+          </span>
+        </div>
+
+        <!-- Validation messages -->
+        <div class="error-text" *ngIf="password.invalid && password.touched">
+          <span *ngIf="password.errors?.['required']">
+            Password is required.
+          </span>
+          <span *ngIf="password.errors?.['minlength']">
+            Must be at least 6 characters.
+          </span>
+        </div>
+
+        <div class="success-text" *ngIf="password.valid && password.touched">
+          Looks good!
+        </div>
+      </div>
+
+      <!-- Wrong credentials error -->
+      <div class="alert-error" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="login-btn"
+              [disabled]="loginForm.invalid">
+        Sign In
+      </button>
+
+    </form>
+
+    <div class="footer-links">
+      <a href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>

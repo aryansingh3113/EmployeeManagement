@@ -1,0 +1,28 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* Centers vertically within the main content area */
+  text-align: center;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 8rem;
+  margin: 0;
+  color: #2d3748;
+  letter-spacing: -5px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #4a5568;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #718096;
+  max-width: 400px;
+  margin: 0 auto 30px;
+  line-height: 1.5;
+}

@@ -1,0 +1,15 @@
+<div class="nav" (mouseEnter) = "onMouseEnter()" (mouseLeave) = "onMouseLeave()">
+    <!--in place of href attribute we've used routerLink attribute, which prevents the page from reloading everytime whenever corresponding button is clicked-->
+    <!--"active" which is assigned to routerLingActive is a class which is getting applied to the corresponding button whenever it is clicked-->
+    <button class="item" routerLink = "Home" routerLinkActive = active><b>Home</b></button>
+    <br>
+    <button class="item" routerLink = "Dashboard" routerLinkActive = active><b>Dashboard</b></button>
+    <br>
+    <button class="item" routerLink = "Profile" routerLinkActive = active><b>Profile</b></button>
+    <br>
+    <button class="item" routerLink = "Employee Registration" routerLinkActive = active><b>Employee Registration</b></button>
+    <br>
+    <button class="item" routerLink = "Employee" routerLinkActive = active><b>Employee</b></button>
+    <br>
+    <button class="item" routerLink = "Help" routerLinkActive = active><b>Help</b></button>
+</div>

@@ -1,0 +1,25 @@
+.app-container {
+  display: flex;       /* This puts Nav and Content in a row */
+  height: 100vh;       /* Makes the app take the full height of the screen */
+  flex-direction: column;   /* ← stack top nav above everything */
+  width: 100vw;        /* Full width */
+  overflow: hidden;   /* Prevents weird double scrollbars */
+}
+
+.body-container{
+  display: flex;
+  flex: 1;                  /* ← takes remaining height below top nav */
+  overflow: hidden;
+  margin-top: 1px;        /* ← gap below top nav */
+}
+
+.main-content {
+  flex-grow: 1;        /* This tells the content to take up all REMAINING space */
+  padding: 20px;       /* Gives your table some breathing room */
+  overflow-y: auto;    /* Allows the content area to scroll if the table is long. agr ye nhi hogi to poora page scroll ho jayega to nav bar b upr chli jayegi scroll hoke, pr ye hai to bs main-content wala hi scroll hoga */
+  overflow-x: hidden;   /* ← Add this, prevents horizontal scroll in content */
+  background-color: #f7fafc; /* Optional: light gray background for content */
+}
+.full-width {
+  padding: 0;
+}

@@ -1,0 +1,190 @@
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #edf2f7;
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ─── Header ─── */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-circle {
+  width: 60px;
+  height: 60px;
+  background-color: #4c51bf;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.login-header h2 {
+  color: #2d3748;
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+.login-header p {
+  color: #718096;
+  font-size: 14px;
+}
+
+/* ─── Form Group ─── */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  color: #4a5568;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Input Wrapper ─── */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: white;
+}
+
+.input-wrapper:focus-within {
+  border-color: #4c51bf;
+  box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.15);
+}
+
+/* Green border when valid */
+.input-wrapper.valid {
+  border-color: #38a169;
+  box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.15);
+}
+
+/* Red border when invalid */
+.input-wrapper.invalid {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
+}
+
+.input-icon {
+  font-size: 15px;
+  color: #a0aec0;
+  margin-right: 8px;
+}
+
+input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  font-size: 15px;
+  color: #2d3748;
+  background: transparent;
+}
+
+.toggle-pw {
+  font-size: 12px;
+  color: #4c51bf;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+.toggle-pw:hover {
+  text-decoration: underline;
+}
+
+/* ─── Validation Messages ─── */
+.error-text {
+  color: #e53e3e;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-left: 4px;
+}
+
+.success-text {
+  color: #38a169;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-left: 4px;
+}
+
+/* ─── Wrong credentials alert ─── */
+.alert-error {
+  background-color: #fff5f5;
+  color: #c53030;
+  border: 1px solid #fed7d7;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* ─── Submit Button ─── */
+.login-btn {
+  width: 100%;
+  padding: 13px;
+  background-color: #4c51bf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.5px;
+}
+
+.login-btn:hover:not(:disabled) {
+  background-color: #434190;
+}
+
+.login-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Button is greyed out when form is invalid */
+.login-btn:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* ─── Footer ─── */
+.footer-links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: #4c51bf;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

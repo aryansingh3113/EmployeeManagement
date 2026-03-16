@@ -1,0 +1,22 @@
+<div class="profile-card" *ngIf="empDetails">
+    <div class="image-section">
+        <img class="user-image" [src]="empDetails?.img || 'assets/user.png'" alt="User Photo">
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item"><strong>Name:</strong> {{empDetails.name}}</div>
+        <div class="info-item"><strong>Designation:</strong> {{empDetails.designation}}</div>
+        <div class="info-item"><strong>Experience:</strong> {{empDetails.yearExp}} years</div>
+        <div class="info-item"><strong>Business:</strong> {{empDetails.business}}</div>
+        <div class="info-item"><strong>Nationality:</strong> {{empDetails.nationality}}</div>
+        <div class="info-item"><strong>User ID:</strong> {{empDetails.id}}</div>
+        <div class="info-item"><strong>Email:</strong> {{empDetails.email}}</div>
+        <div class="info-item"><strong>Contact:</strong> {{empDetails.contact}}</div>
+        <div class="info-item"><strong>Gender:</strong> {{empDetails.gender}}</div>
+    </div>
+</div>
+
+<div *ngIf="!empDetails" class="no-selection">
+    <h3>No Employee Selected</h3>
+    <p>Please go to the <strong>Employee</strong> list and click a row.</p>
+</div>

@@ -1,0 +1,149 @@
+<!-- Loader -->
+<div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Loading...</p>
+</div>
+
+<div class="home-wrapper" *ngIf="!isLoading">
+
+  <!-- ─── Welcome Banner ─── -->
+  <div class="welcome-banner">
+    <div class="welcome-text">
+      <h1>Good {{ getGreeting() }}, <span class="username">{{ userName }}</span> 👋</h1>
+      <p>{{ today | date:'fullDate' }} &nbsp;|&nbsp; Employee Management Portal</p>
+    </div>
+    <div class="quote-box">
+      <span class="quote-mark">"</span>
+      <p>{{ todayQuote.text }}</p>
+      <span class="quote-author">— {{ todayQuote.author }}</span>
+    </div>
+  </div>
+
+  <!-- ─── Stats Cards ─── -->
+  <div class="stats-grid">
+    <div class="stat-card" style="border-left-color: #4299e1">
+      <span class="stat-icon">👥</span>
+      <div>
+        <span class="stat-value">{{ totalEmployees }}</span>
+        <span class="stat-label">Total Employees</span>
+      </div>
+    </div>
+    <div class="stat-card" style="border-left-color: #48bb78">
+      <span class="stat-icon">🏢</span>
+      <div>
+        <span class="stat-value">{{ totalDepartments }}</span>
+        <span class="stat-label">Departments</span>
+      </div>
+    </div>
+    <div class="stat-card" style="border-left-color: #4c51bf">
+      <span class="stat-icon">👨</span>
+      <div>
+        <span class="stat-value">{{ maleCount }}</span>
+        <span class="stat-label">Male Employees</span>
+      </div>
+    </div>
+    <div class="stat-card" style="border-left-color: #ed64a6">
+      <span class="stat-icon">👩</span>
+      <div>
+        <span class="stat-value">{{ femaleCount }}</span>
+        <span class="stat-label">Female Employees</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Main Grid ─── -->
+  <div class="main-grid">
+
+    <!-- ─── LEFT ─── -->
+    <div class="left-col">
+
+      <!-- Announcements -->
+      <div class="card">
+        <div class="card-header">
+          <span>📢</span>
+          <h3>Announcements</h3>
+        </div>
+        <div class="announcement" 
+             *ngFor="let a of announcements"
+             [ngClass]="a.type">
+          <div class="ann-top">
+            <strong>{{ a.title }}</strong>
+            <span class="ann-date">{{ a.date }}</span>
+          </div>
+          <p>{{ a.message }}</p>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-header">
+          <span>🕐</span>
+          <h3>Recent Activity</h3>
+        </div>
+        <div class="activity-item" *ngFor="let a of recentActivity">
+          <span class="act-icon">{{ a.icon }}</span>
+          <div class="act-info">
+            <strong>{{ a.action }}</strong>
+            <span>by {{ a.user }}</span>
+          </div>
+          <span class="act-time">{{ a.time }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── RIGHT ─── -->
+    <div class="right-col">
+
+      <!-- Employee of the Month -->
+      <div class="card emp-of-month" *ngIf="employeeOfMonth">
+        <div class="card-header">
+          <span>🏆</span>
+          <h3>Employee of the Month</h3>
+        </div>
+        <div class="eom-body">
+          <div class="eom-badge">⭐</div>
+          <img [src]="employeeOfMonth.img || 'assets/user.png'" 
+               alt="Employee">
+          <h4>{{ employeeOfMonth.name }}</h4>
+          <p class="eom-role">{{ employeeOfMonth.designation }}</p>
+          <p class="eom-dept">{{ employeeOfMonth.business }}</p>
+          <div class="eom-stat">
+            <span>🏅 {{ employeeOfMonth.yearExp }} years experience</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card">
+        <div class="card-header">
+          <span>⚡</span>
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="actions-grid">
+          <button class="action-btn" 
+                  (click)="goTo('Employee Registration')">
+            <span>➕</span>
+            <span>New Employee</span>
+          </button>
+          <button class="action-btn" 
+                  (click)="goTo('Employee')">
+            <span>👥</span>
+            <span>All Employees</span>
+          </button>
+          <button class="action-btn" 
+                  (click)="goTo('Dashboard')">
+            <span>📊</span>
+            <span>Dashboard</span>
+          </button>
+          <button class="action-btn" 
+                  (click)="goTo('Help')">
+            <span>❓</span>
+            <span>Help</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

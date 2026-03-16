@@ -1,0 +1,48 @@
+<!-- Loader Overlay -->
+<div class="loader-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>Loading employees...</p>
+</div>
+
+<div class="layout">
+
+  <div class="content">
+    <!-- Any new elements go here -->
+     <table class="employee-table">
+  <thead>
+    <tr>
+      <th >Name</th>
+      <th>Designation</th>
+      <th>Years of Experience</th>
+      <th>Business</th>
+      <th>User ID</th>
+      <th>User Email</th>
+      <th>Nationality</th>
+      <th>Contact</th>
+      <th>Gender</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let e of employees" style="cursor: pointer;" (click) = "onClick(e)">
+      
+      <td>{{e.name}}</td>
+      <td>{{e.designation}}</td>
+      <td>{{e.yearExp}}</td>
+      <td>{{e.business}}</td>
+      <td>{{e.id}}</td>
+      <td>{{e.email}}</td>
+      <td>{{e.nationality}}</td>
+      <td>{{e.contact}}</td>
+      <td>{{e.gender}}</td>
+      <td><button class="edit-btn" (click)="onClickEdit($event, e)">EDIT</button></td>  <!-- ts file me event variable was the type of Event, so for passing argument in the html, we will use the special character, which is "$event" -->
+      <td><button class="delete-btn" (click)="deleteEmp($event, e.firebaseKey)">DELETE</button></td> <!-- ts file me event variable was the type of Event, so for passing argument in the html, we will use the special character, which is "$event" -->
+    </tr>
+  </tbody>
+</table>
+ <!-- <app-child [name] = " 'Aryan' ", [age] = " 15 "></app-child> - Rough work-->
+     <!-- <app-profile [empDetails]="selectedEmp"></app-profile> --> <!--2. ye empDetails app-profile-card ki property hai jo ki initially empty hai.. to kisi row pr click krne ke baad selectedEmp me jo object store ho jayega use hum is empDetails property se bind kr denge..matlab ab empDetails me vo object store ho gya. -->
+  </div>
+</div>
