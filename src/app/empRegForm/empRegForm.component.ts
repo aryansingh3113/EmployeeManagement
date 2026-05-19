@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../Services/employee.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DialogService } from '../Services/dialog.service';
 
 @Component({
   selector: 'app-emp-reg-form',
@@ -22,7 +23,7 @@ export class EmpRegFormComponent implements OnInit {
 
   reactiveForm: FormGroup;
 
-  constructor(private empService: EmployeeService, private router: Router) {}
+  constructor(private empService: EmployeeService, private router: Router, private dialogService: DialogService) {}
 
   ngOnInit() {
     this.reactiveForm = new FormGroup({
@@ -73,7 +74,7 @@ export class EmpRegFormComponent implements OnInit {
 
   onSubmit() {
     if (this.reactiveForm.invalid) {
-      alert("Please fill in all required fields.");
+      this.dialogService.error('Please fill in all required fields.');
       return;
     }
     
@@ -99,13 +100,13 @@ export class EmpRegFormComponent implements OnInit {
       this.empService.updateEmployee(this.firebaseKey, employeeToSave).subscribe({
         next: () => {
           this.isLoading = false; //stop the loader
-          alert(`Employee ${employeeToSave.name} updated successfully!`);
+          this.dialogService.success(`${employeeToSave.name} updated successfully!`);
           this.router.navigate(['/Employee']);
         },
         error: (err) => {
           this.isLoading = false;   // ← STOP loader even on error
           console.error('Update error:', err);
-          alert('Something went wrong. Please try again.');
+          this.dialogService.error('Something went wrong. Please try again.');
         }
       });
 
@@ -114,13 +115,13 @@ export class EmpRegFormComponent implements OnInit {
       this.empService.addEmployee(employeeToSave).subscribe({
         next: () => {
           this.isLoading = false;   // ← STOP loader
-          alert(`Employee ${employeeToSave.name} registered successfully!`);
+          this.dialogService.success(`${employeeToSave.name} registered successfully!`);
           this.router.navigate(['/Employee']);
         },
         error: (err) => {
           this.isLoading = false;   // ← STOP loader even on error
           console.error('Add error:', err);
-          alert('Something went wrong. Please try again.');
+          this.dialogService.error('Something went wrong. Please try again.');
         }
       });
     }

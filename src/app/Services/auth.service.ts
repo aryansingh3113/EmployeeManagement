@@ -1,37 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private isLoggedIn = false;
+  // private isLoggedIn = false;
   private loggedInUser = '';   // ← store username  
 
-  constructor(private router: Router) {}
-
-  login(username: string, password: string): boolean {
-    // For now, simple hardcoded check
-    // Later I can connect this to Firebase Auth
-    if (username === 'admin' && password === 'admin123') {
-      this.isLoggedIn = true;
-      localStorage.setItem('isLoggedIn', 'true');  // ← saves login state in browser
-      localStorage.setItem('loggedInUser', username);   // ← save to localStorage too
-      return true;
-    }
-    return false;
+  constructor(private router: Router,
+              private afAuth: AngularFireAuth //firebase auth 
+  ) {}
+  
+  //login with firebase
+  login(email: string, password: string): Promise<boolean> {
+    return this.afAuth.signInWithEmailAndPassword(email, password)
+      .then(result => {
+        this.loggedInUser = result.user?.email || 'Admin';
+        localStorage.setItem('isLoggedIn',   'true');
+        localStorage.setItem('loggedInUser', this.loggedInUser);
+        return true;
+      })
+      .catch(() => {
+        return false;
+      });
   }
 
   logout() {
-    this.isLoggedIn = false;
-    localStorage.removeItem('isLoggedIn');          // ← clears login state
+    this.afAuth.signOut();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('loggedInUser');
     this.router.navigate(['/Login']);
   }
 
   isAuthenticated(): boolean {
     // Check memory first, then localStorage (for page refresh)
-    return this.isLoggedIn || localStorage.getItem('isLoggedIn') === 'true';
+    return localStorage.getItem('isLoggedIn') === 'true';
   }
   
   // ← Returns the logged in username

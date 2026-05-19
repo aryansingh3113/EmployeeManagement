@@ -10,7 +10,7 @@ import { RoughComponent } from './rough/rough.component';
 import { PercentagePipe } from './Pipes/percentage.pipe';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
-import { NavComponent } from './nav/nav.component';
+// import { NavComponent } from './nav/nav.component';
 import { HelpComponent } from './help/help.component';
 import { EmpRegFormComponent } from './empRegForm/empRegForm.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -21,7 +21,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './Guards/auth.guard';
-import { TopNavComponent } from './top-nav/top-nav.component';
+// import { TopNavComponent } from './top-nav/top-nav.component';
+import { MatSidenavModule }  from '@angular/material/sidenav';
+import { MatToolbarModule }  from '@angular/material/toolbar';
+import { MatListModule }     from '@angular/material/list';
+import { MatIconModule }     from '@angular/material/icon';
+import { MatButtonModule }   from '@angular/material/button';
+import { MatTooltipModule }  from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { AngularFireModule }     from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
 
 //DEFINING ROUTING
 const routes : Routes = [
@@ -45,7 +57,7 @@ const routes : Routes = [
     PercentagePipe,
     ParentComponent,
     ChildComponent,
-    NavComponent,
+    // NavComponent,
     HelpComponent,
     EmpRegFormComponent,
     DashboardComponent,
@@ -53,7 +65,8 @@ const routes : Routes = [
     NotFoundComponent,
     EmployeeComponent,
     LoginComponent,
-    TopNavComponent,
+    ConfirmDialogComponent,
+    // TopNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +75,17 @@ const routes : Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

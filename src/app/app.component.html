@@ -1,20 +1,128 @@
-<!-- <app-profile></app-profile> -->
-<!-- <app-profile-card></app-profile-card> -->
- <!-- <app-rough></app-rough> -->
-  <!-- <app-table></app-table> -->
-<div class="app-container">
+<div class="app-shell" *ngIf="!isLoginPage()">
 
-  <!-- Top nav hidden on login page -->
-  <app-top-nav *ngIf="!isLoginPage()"></app-top-nav>
+  <!-- ─── Top Toolbar ─── -->
+  <mat-toolbar class="top-toolbar">
 
-  <div class="body-container">
+    <!-- Hamburger -->
+    <button mat-icon-button (click)="sidenav.toggle()" class="menu-btn">
+      <mat-icon>{{ sidenav.opened ? 'close' : 'menu' }}</mat-icon>
+    </button>
 
-    <!-- Side nav hidden on login page -->
-    <app-nav *ngIf="!isLoginPage()"></app-nav>
-
-    <div class="main-content" [class.full-width]="isLoginPage()">
-      <router-outlet></router-outlet>
+    <!-- Site Name -->
+    <div class="site-name">
+      <span class="site-title">Employee Management System</span>
+      <span class="site-sub">Admin Portal</span>
     </div>
 
-  </div>
+    <span class="spacer"></span>
+
+    <!-- User Info -->
+    <div class="user-info">
+      <div class="user-avatar">{{ getInitial() }}</div>
+      <div class="user-details">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-role">Administrator</span>
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <button mat-stroked-button 
+            class="logout-btn" 
+            (click)="onLogout()"
+            matTooltip="Logout">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+
+    <!-- Dark / Light toggle -->
+    <button mat-icon-button 
+            (click)="toggleTheme()" 
+            [matTooltip]="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+            class="theme-btn">
+      <mat-icon>{{ isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+
+  </mat-toolbar>
+
+  <!-- ─── Sidenav Container ─── -->
+  <mat-sidenav-container class="sidenav-container">
+
+    <!-- Sidebar -->
+    <mat-sidenav #sidenav 
+                 mode="side" 
+                 opened 
+                 class="sidenav">
+
+      <mat-nav-list>
+
+        <a mat-list-item 
+           routerLink="Home" 
+           routerLinkActive="active-link"
+           matTooltip="Home"
+           matTooltipPosition="right">
+          <mat-icon matListItemIcon>home</mat-icon>
+          <span matListItemTitle>Home</span>
+        </a>
+
+        <a mat-list-item 
+           routerLink="Dashboard" 
+           routerLinkActive="active-link"
+           matTooltip="Dashboard"
+           matTooltipPosition="right">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+
+        <a mat-list-item 
+           routerLink="Profile" 
+           routerLinkActive="active-link"
+           matTooltip="Profile"
+           matTooltipPosition="right">
+          <mat-icon matListItemIcon>person</mat-icon>
+          <span matListItemTitle>Profile</span>
+        </a>
+
+        <a mat-list-item 
+           routerLink="Employee Registration" 
+           routerLinkActive="active-link"
+           matTooltip="Registration"
+           matTooltipPosition="right">
+          <mat-icon matListItemIcon>person_add</mat-icon>
+          <span matListItemTitle>Registration</span>
+        </a>
+
+        <a mat-list-item 
+           routerLink="Employee" 
+           routerLinkActive="active-link"
+           matTooltip="Employees"
+           matTooltipPosition="right">
+          <mat-icon matListItemIcon>groups</mat-icon>
+          <span matListItemTitle>Employees</span>
+        </a>
+
+        <a mat-list-item 
+           routerLink="Help" 
+           routerLinkActive="active-link"
+           matTooltip="Help"
+           matTooltipPosition="right">
+          <mat-icon matListItemIcon>help_outline</mat-icon>
+          <span matListItemTitle>Help</span>
+        </a>
+
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <!-- ─── Main Content ─── -->
+    <mat-sidenav-content class="main-content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>
+
+<!-- Login page — no nav at all -->
+<div *ngIf="isLoginPage()">
+  <router-outlet></router-outlet>
 </div>

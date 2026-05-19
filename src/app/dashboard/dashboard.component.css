@@ -1,7 +1,7 @@
 .dashboard-wrapper {
   padding: 25px;
   font-family: 'Segoe UI', sans-serif;
-  background: #f7fafc;
+   background: var(--bg-primary);
   min-height: 100vh;
 }
 
@@ -42,18 +42,18 @@
 }
 .welcome h1 {
   font-size: 1.7rem;
-  color: #2d3748;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 .welcome .username { color: #4c51bf; }
-.welcome p { color: #718096; font-size: 14px; }
+.welcome p { color: var(--text-secondary); font-size: 14px; }
 
 /* ─── Search ─── */
 .search-area { position: relative; width: 320px; }
 .search-box {
   display: flex;
   align-items: center;
-  background: white;
+  background: var(--bg-card);
   border: 1.5px solid #e2e8f0;
   border-radius: 8px;
   padding: 0 12px;
@@ -83,8 +83,8 @@
   top: 110%;
   left: 0;
   width: 100%;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   z-index: 100;
@@ -99,15 +99,15 @@
   cursor: pointer;
   transition: background 0.15s;
 }
-.search-item:hover { background: #f7fafc; }
+.search-item:hover {  background: var(--bg-primary); }
 .search-item img {
   width: 36px; height: 36px;
   border-radius: 50%;
   object-fit: cover;
 }
 .search-item div { display: flex; flex-direction: column; }
-.search-item strong { font-size: 14px; color: #2d3748; }
-.search-item span   { font-size: 12px; color: #718096; }
+.search-item strong { font-size: 14px; color: var(--text-primary); }
+.search-item span   { font-size: 12px; color: var(--text-secondary); }
 .no-results { padding: 15px; text-align: center; color: #a0aec0; font-size: 14px; }
 
 /* ─── Stats Grid ─── */
@@ -118,13 +118,13 @@
   margin-bottom: 25px;
 }
 .stat-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow);
   border-left: 5px solid transparent;
 }
 .stat-card.blue   { border-left-color: #4299e1; }
@@ -136,12 +136,12 @@
   display: block;
   font-size: 1.8rem;
   font-weight: bold;
-  color: #2d3748;
+  color: var(--text-primary);
 }
 .stat-label {
   display: block;
   font-size: 12px;
-  color: #718096;
+  color: var(--text-secondary);
   margin-top: 2px;
 }
 
@@ -153,10 +153,10 @@
   margin-bottom: 25px;
 }
 .box {
-  background: white;
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow);
 }
 .box-header {
   display: flex;
@@ -164,7 +164,7 @@
   align-items: center;
   margin-bottom: 15px;
 }
-.box-header h3 { color: #2d3748; font-size: 15px; margin: 0; }
+.box-header h3 { color: var(--text-primary); font-size: 15px; margin: 0; }
 .box-header button {
   font-size: 12px;
   padding: 5px 12px;
@@ -174,7 +174,7 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.box h3 { color: #2d3748; font-size: 15px; margin: 0 0 15px; }
+.box h3 { color: var(--text-primary); font-size: 15px; margin: 0 0 15px; }
 .empty { color: #a0aec0; font-size: 14px; text-align: center; padding: 20px 0; }
 
 /* ─── Recent ─── */
@@ -192,8 +192,8 @@
   object-fit: cover;
 }
 .recent-info { flex: 1; display: flex; flex-direction: column; }
-.recent-info strong { font-size: 14px; color: #2d3748; }
-.recent-info span   { font-size: 12px; color: #718096; }
+.recent-info strong { font-size: 14px; color: var(--text-primary); }
+.recent-info span   { font-size: 12px; color: var(--text-secondary); }
 .dept-badge {
   font-size: 11px;
   background: #ebf4ff;
@@ -211,8 +211,8 @@
   font-size: 13px;
   margin-bottom: 5px;
 }
-.dept-name  { color: #2d3748; font-weight: 600; }
-.dept-count { color: #718096; }
+.dept-name  { color: var(--text-primary); font-weight: 600; }
+.dept-count { color: var(--text-secondary); }
 .progress-bar {
   background: #edf2f7;
   border-radius: 10px;
@@ -235,7 +235,7 @@
   font-size: 13px;
 }
 .gender-item span:first-child { width: 50px; color: #4a5568; }
-.gender-item span:last-child  { width: 35px; text-align: right; color: #718096; }
+.gender-item span:last-child  { width: 35px; text-align: right; color: var(--text-secondary); }
 .gender-item .progress-bar    { flex: 1; }
 .blue-fill   { background: #4299e1; }
 .pink-fill   { background: #ed64a6; }
@@ -247,11 +247,11 @@
   width: 100%;
   padding: 12px;
   margin-bottom: 10px;
-  background: #f7fafc;
+   background: var(--bg-primary);
   border: 1.5px solid #e2e8f0;
   border-radius: 8px;
   font-size: 14px;
-  color: #2d3748;
+  color: var(--text-primary);
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;

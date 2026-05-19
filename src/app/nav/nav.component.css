@@ -1,39 +1,95 @@
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.nav{
-    /*before width: 250px; */
-    width: 60px;                        /* ← collapsed width (icon only) */
-    background-color:#2d3748;
-    height: 100%;
-    padding: 10px 0px;
-    border: 0px solid black;
-    margin-top: 0px;
-    display: flex;              /* ← Use flexbox */
-    flex-direction: column;     /* ← Stack items vertically */
-    overflow-y: auto;           /* ← Scroll if too many items */
-    transition: width 0.3s ease;        /* ← smooth slide animation */
-    flex-shrink: 0;                     /* ← prevents nav from squishing */
-}
-.nav:hover{
-    width: 250px;
-}
-.item{
-    margin: 8px 0px 20px 0px;
-    padding: 14px 0;            /* ← Smaller, consistent padding */
-    color: white;
-    text-align: center;
-    font-family: sans-serif;
-    font-size: medium;
-    width: 100%;
-    background-color: #2d3748;
-    border: none;
-    flex-shrink: 0;             /* ← Prevents items from squishing */
-}
-.item:hover{
-    cursor: pointer;
-    background-color: #27303f;
 
+/* ─── Sidebar container ─── */
+.nav {
+  width: 60px;                         /* collapsed */
+  background-color: #2d3748;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  flex-shrink: 0;
+}
+
+.nav.expanded {
+  width: 220px;                        /* expanded */
+}
+
+/* ─── Hamburger button ─── */
+.toggle-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 18px;
+  cursor: pointer;
+  min-height: 60px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate to X when expanded */
+.bar.rotate-top { transform: translateY(7px) rotate(45deg);  }
+.bar.hide-mid   { opacity: 0; transform: scaleX(0);          }
+.bar.rotate-bot { transform: translateY(-7px) rotate(-45deg);}
+
+/* ─── Nav items ─── */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.7);
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.07);
+  color: white;
+}
+
+.nav-item.active {
+  background: #4c51bf;
+  color: white;
+  border-left: 3px solid white;
+}
+
+/* ─── Icon ─── */
+.nav-icon {
+  font-size: 19px;
+  min-width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ─── Label ─── */
+.nav-label {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Segoe UI', sans-serif;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.nav.expanded .nav-label {
+  opacity: 1;
 }

@@ -61,60 +61,118 @@
 //   return temp;
 // }
 // }
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  http: HttpClient = inject(HttpClient);
-
   private dbUrl = 'https://employee-38e87-default-rtdb.firebaseio.com/employees';
 
   private selectedEmp: any = null;
-  private editEmp: any = null;
+  private editEmp:     any = null;
+
+  constructor(
+    private http:   HttpClient,
+    private afAuth: AngularFireAuth   // ← inject Firebase Auth
+  ) {}
+
+  // ─── Get token from Firebase ───
+  // ─── Get token from Firebase ───
+private getToken(): Observable<string> {
+  return new Observable(observer => {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        user.getIdToken().then(token => {
+          observer.next(token);
+          observer.complete();
+        });
+      } else {
+        // ← No user found, try onAuthStateChanged as fallback
+        this.afAuth.onAuthStateChanged(firebaseUser => {
+          if (firebaseUser) {
+            firebaseUser.getIdToken().then(token => {
+              observer.next(token);
+              observer.complete();
+            });
+          } else {
+            observer.next('');
+            observer.complete();
+          }
+        });
+      }
+    });
+  });
+}
 
   // ─── GET all employees ───
   getEmployees(): Observable<any[]> {
-    return this.http.get<{ [key: string]: any }>(this.dbUrl + '.json').pipe(
-      map(data => {
-        if (!data) return [];
-        return Object.keys(data).map(key => ({
-          firebaseKey: key,
-          ...data[key]
-        }));
-      })
+    return this.getToken().pipe(
+      switchMap(token =>
+        this.http.get<{ [key: string]: any }>(
+          `${this.dbUrl}.json?auth=${token}`   // ← attach token
+        ).pipe(
+          map(data => {
+            if (!data) return [];
+            return Object.keys(data).map(key => ({
+              firebaseKey: key,
+              ...data[key]
+            }));
+          })
+        )
+      )
     );
   }
 
   // ─── ADD employee ───
   addEmployee(emp: any): Observable<any> {
-    return this.http.post(this.dbUrl + '.json', emp);
+    return this.getToken().pipe(
+      switchMap(token =>
+        this.http.post(
+          `${this.dbUrl}.json?auth=${token}`,  // ← attach token
+          emp
+        )
+      )
+    );
   }
 
   // ─── UPDATE employee ───
   updateEmployee(firebaseKey: string, emp: any): Observable<any> {
-    return this.http.put(`${this.dbUrl}/${firebaseKey}.json`, emp);
+    return this.getToken().pipe(
+      switchMap(token =>
+        this.http.put(
+          `${this.dbUrl}/${firebaseKey}.json?auth=${token}`,  // ← attach token
+          emp
+        )
+      )
+    );
   }
 
   // ─── DELETE employee ───
   deleteEmployee(firebaseKey: string): Observable<any> {
-    return this.http.delete(`${this.dbUrl}/${firebaseKey}.json`);
+    return this.getToken().pipe(
+      switchMap(token =>
+        this.http.delete(
+          `${this.dbUrl}/${firebaseKey}.json?auth=${token}`   // ← attach token
+        )
+      )
+    );
   }
 
   // ─── Profile helpers ───
   setEmployeeForProfile(emp: any) { this.selectedEmp = emp; }
-  getEmployeeForProfile() { return this.selectedEmp; }
+  getEmployeeForProfile()         { return this.selectedEmp; }
 
   // ─── Edit helpers ───
   setEmployeeForEdit(emp: any) { this.editEmp = emp; }
   getEmployeeForEdit() {
-    const temp = this.editEmp;
-    this.editEmp = null;
+    const temp    = this.editEmp;
+    this.editEmp  = null;
     return temp;
   }
 }

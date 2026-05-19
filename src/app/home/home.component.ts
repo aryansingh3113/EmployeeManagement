@@ -123,5 +123,5 @@ export class HomeComponent implements OnInit {
   if (hour < 12) return 'Morning';
   if (hour < 17) return 'Afternoon';
   return 'Evening';
-}
+} 
 }

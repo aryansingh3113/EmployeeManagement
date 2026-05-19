@@ -1,4 +1,10 @@
-<div class="nav" (mouseEnter) = "onMouseEnter()" (mouseLeave) = "onMouseLeave()">
+<div class="nav" [class.expanded]="isExpanded">
+    <!-- Hamburger Toggle Button -->
+  <div class="toggle-btn" (click)="toggle()">
+    <span class="bar" [class.rotate-top]="isExpanded"></span>
+    <span class="bar" [class.hide-mid]="isExpanded"></span>
+    <span class="bar" [class.rotate-bot]="isExpanded"></span>
+  </div>
     <!--in place of href attribute we've used routerLink attribute, which prevents the page from reloading everytime whenever corresponding button is clicked-->
     <!--"active" which is assigned to routerLingActive is a class which is getting applied to the corresponding button whenever it is clicked-->
     <button class="item" routerLink = "Home" routerLinkActive = active><b>Home</b></button>

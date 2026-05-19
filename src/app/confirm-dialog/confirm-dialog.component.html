@@ -1,0 +1,29 @@
+<div class="dialog-wrapper">
+
+      <!-- Icon -->
+      <div class="dialog-icon" [ngClass]="data.type || 'warning'">
+        <mat-icon>{{ getIcon() }}</mat-icon>
+      </div>
+
+      <!-- Title -->
+      <h2 mat-dialog-title>{{ data.title }}</h2>
+
+      <!-- Message -->
+      <mat-dialog-content>
+        <p>{{ data.message }}</p>
+      </mat-dialog-content>
+
+      <!-- Buttons -->
+      <mat-dialog-actions align="end">
+        <button mat-stroked-button 
+                (click)="onCancel()">
+          {{ data.cancelText || 'Cancel' }}
+        </button>
+        <button mat-flat-button 
+                [color]="data.type === 'danger' ? 'warn' : 'primary'"
+                (click)="onConfirm()">
+          {{ data.confirmText || 'Confirm' }}
+        </button>
+      </mat-dialog-actions>
+
+    </div>

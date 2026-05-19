@@ -6,12 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-  isExpand = false;
+ isExpanded = false;
 
-  onMouseEnter(){
-    this.isExpand = true;
-  }
-  onMouseLeave(){
-    this.isExpand = false;
+  toggle() {
+    this.isExpanded = !this.isExpanded;
   }
 }

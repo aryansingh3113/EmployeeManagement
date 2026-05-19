@@ -1,0 +1,51 @@
+.dialog-wrapper {
+      padding: 10px;
+      text-align: center;
+      min-width: 300px;
+    }
+    .dialog-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .dialog-icon mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+    .dialog-icon.warning {
+      background: #fffbeb;
+      color: #d69e2e;
+    }
+    .dialog-icon.danger {
+      background: #fff5f5;
+      color: #e53e3e;
+    }
+    .dialog-icon.success {
+      background: #f0fff4;
+      color: #38a169;
+    }
+    .dialog-icon.info {
+      background: #ebf8ff;
+      color: #3182ce;
+    }
+    h2 {
+      color: var(--text-primary);
+      font-size: 18px;
+      margin: 0 0 8px;
+    }
+    p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.6;
+    }
+    mat-dialog-actions {
+      margin-top: 20px;
+      gap: 10px;
+      padding-bottom: 0 !important;
+    }

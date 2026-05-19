@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../Services/employee.service';
+import { DialogService } from '../Services/dialog.service';
 
 @Component({
   selector: 'app-employee',
@@ -10,11 +11,16 @@ import { EmployeeService } from '../Services/employee.service';
 export class EmployeeComponent implements OnInit {
   employees: any[] = [];
   isLoading = false;   // for loader
+  activatedRoute : ActivatedRoute = inject(ActivatedRoute);
+  serachString : string;
 
-  constructor(private router: Router, private empService: EmployeeService) {}
+  constructor(private router: Router, private empService: EmployeeService, private dialogService: DialogService ) {}
 
   ngOnInit() {
     this.loadEmployees();
+    this.serachString = this.activatedRoute.snapshot.queryParamMap.get('search')
+    console.log(this.serachString);
+    
     
   }
 
@@ -27,7 +33,7 @@ export class EmployeeComponent implements OnInit {
         this.isLoading = false;   // ← STOP loader
       },
       error: (err) => {
-        console.error('Error fetching employees:', err);
+        this.dialogService.error('Failed to load employees.');
         this.isLoading = false;   // ← STOP loader even on error
       }
     });
@@ -39,18 +45,29 @@ export class EmployeeComponent implements OnInit {
   }
 
   // ─── Delete from Firebase ───
-  deleteEmp(event: Event, firebaseKey: string) {
+    deleteEmp(event: Event, firebaseKey: string) {
     event.stopPropagation();
-    if (confirm("Are you sure you want to delete this record?")) {
-      this.empService.deleteEmployee(firebaseKey).subscribe({
-        next: () => {
-          this.loadEmployees();  // refresh table
-        },
-        error: (err) => {
-          console.error('Error deleting employee:', err);
-        }
-      });
-    }
+
+    // ← MatDialog instead of window.confirm
+    this.dialogService.confirm(
+      'Delete Employee',
+      'Are you sure you want to permanently delete this record? This action cannot be undone.',
+      'Delete',
+      'Cancel',
+      'danger'
+    ).subscribe(confirmed => {
+      if (confirmed) {
+        this.empService.deleteEmployee(firebaseKey).subscribe({
+          next: () => {
+            this.dialogService.success('Employee deleted successfully.');
+            this.loadEmployees();
+          },
+          error: () => {
+            this.dialogService.error('Failed to delete employee.');
+          }
+        });
+      }
+    });
   }
 
   // ─── Go to edit form ───
